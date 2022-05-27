@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.wechatdemo.wechat.mapper.DrugsegmentationMapper">
+  <resultMap id="BaseResultMap" type="com.example.wechatdemo.wechat.entity.Drugsegmentation">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="drugSegId" jdbcType="INTEGER" property="drugsegid" />
+    <result column="parentId" jdbcType="INTEGER" property="parentid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="dscr1" jdbcType="VARCHAR" property="dscr1" />
+    <result column="dscr2" jdbcType="VARCHAR" property="dscr2" />
+    <result column="dscr3" jdbcType="VARCHAR" property="dscr3" />
+    <result column="dscr4" jdbcType="VARCHAR" property="dscr4" />
+    <result column="dscr5" jdbcType="INTEGER" property="dscr5" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, drugSegId, parentId, name, img, dscr1, dscr2, dscr3, dscr4, dscr5
+  </sql>
+  <select id="selectByExample" parameterType="com.example.wechatdemo.wechat.entity.DrugsegmentationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from drugsegmentation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from drugsegmentation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from drugsegmentation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.wechatdemo.wechat.entity.DrugsegmentationExample">
+    delete from drugsegmentation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.wechatdemo.wechat.entity.Drugsegmentation">
+    insert into drugsegmentation (id, drugSegId, parentId, 
+      name, img, dscr1, dscr2, 
+      dscr3, dscr4, dscr5
+      )
+    values (#{id,jdbcType=INTEGER}, #{drugsegid,jdbcType=INTEGER}, #{parentid,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, #{dscr1,jdbcType=VARCHAR}, #{dscr2,jdbcType=VARCHAR}, 
+      #{dscr3,jdbcType=VARCHAR}, #{dscr4,jdbcType=VARCHAR}, #{dscr5,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.wechatdemo.wechat.entity.Drugsegmentation">
+    insert into drugsegmentation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="drugsegid != null">
+        drugSegId,
+      </if>
+      <if test="parentid != null">
+        parentId,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="img != null">
+        img,
+      </if>
+      <if test="dscr1 != null">
+        dscr1,
+      </if>
+      <if test="dscr2 != null">
+        dscr2,
+      </if>
+      <if test="dscr3 != null">
+        dscr3,
+      </if>
+      <if test="dscr4 != null">
+        dscr4,
+      </if>
+      <if test="dscr5 != null">
+        dscr5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="drugsegid != null">
+        #{drugsegid,jdbcType=INTEGER},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="dscr1 != null">
+        #{dscr1,jdbcType=VARCHAR},
+      </if>
+      <if test="dscr2 != null">
+        #{dscr2,jdbcType=VARCHAR},
+      </if>
+      <if test="dscr3 != null">
+        #{dscr3,jdbcType=VARCHAR},
+      </if>
+      <if test="dscr4 != null">
+        #{dscr4,jdbcType=VARCHAR},
+      </if>
+      <if test="dscr5 != null">
+        #{dscr5,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.wechatdemo.wechat.entity.DrugsegmentationExample" resultType="java.lang.Long">
+    select count(*) from drugsegmentation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update drugsegmentation
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.drugsegid != null">
+        drugSegId = #{record.drugsegid,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentid != null">
+        parentId = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.img != null">
+        img = #{record.img,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dscr1 != null">
+        dscr1 = #{record.dscr1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dscr2 != null">
+        dscr2 = #{record.dscr2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dscr3 != null">
+        dscr3 = #{record.dscr3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dscr4 != null">
+        dscr4 = #{record.dscr4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dscr5 != null">
+        dscr5 = #{record.dscr5,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update drugsegmentation
+    set id = #{record.id,jdbcType=INTEGER},
+      drugSegId = #{record.drugsegid,jdbcType=INTEGER},
+      parentId = #{record.parentid,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      img = #{record.img,jdbcType=VARCHAR},
+      dscr1 = #{record.dscr1,jdbcType=VARCHAR},
+      dscr2 = #{record.dscr2,jdbcType=VARCHAR},
+      dscr3 = #{record.dscr3,jdbcType=VARCHAR},
+      dscr4 = #{record.dscr4,jdbcType=VARCHAR},
+      dscr5 = #{record.dscr5,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.wechatdemo.wechat.entity.Drugsegmentation">
+    update drugsegmentation
+    <set>
+      <if test="drugsegid != null">
+        drugSegId = #{drugsegid,jdbcType=INTEGER},
+      </if>
+      <if test="parentid != null">
+        parentId = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="dscr1 != null">
+        dscr1 = #{dscr1,jdbcType=VARCHAR},
+      </if>
+      <if test="dscr2 != null">
+        dscr2 = #{dscr2,jdbcType=VARCHAR},
+      </if>
+      <if test="dscr3 != null">
+        dscr3 = #{dscr3,jdbcType=VARCHAR},
+      </if>
+      <if test="dscr4 != null">
+        dscr4 = #{dscr4,jdbcType=VARCHAR},
+      </if>
+      <if test="dscr5 != null">
+        dscr5 = #{dscr5,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.wechatdemo.wechat.entity.Drugsegmentation">
+    update drugsegmentation
+    set drugSegId = #{drugsegid,jdbcType=INTEGER},
+      parentId = #{parentid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      dscr1 = #{dscr1,jdbcType=VARCHAR},
+      dscr2 = #{dscr2,jdbcType=VARCHAR},
+      dscr3 = #{dscr3,jdbcType=VARCHAR},
+      dscr4 = #{dscr4,jdbcType=VARCHAR},
+      dscr5 = #{dscr5,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

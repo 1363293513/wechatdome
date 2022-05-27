@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.wechatdemo.wechat.mapper.AppointmentMapper">
+  <resultMap id="BaseResultMap" type="com.example.wechatdemo.wechat.entity.Appointment">
+    <id column="aid" jdbcType="INTEGER" property="aid" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="did" jdbcType="INTEGER" property="did" />
+    <result column="ayuyuename" jdbcType="VARCHAR" property="ayuyuename" />
+    <result column="aemail" jdbcType="VARCHAR" property="aemail" />
+    <result column="atime" jdbcType="TIMESTAMP" property="atime" />
+    <result column="amoneny" jdbcType="VARCHAR" property="amoneny" />
+    <result column="astate" jdbcType="VARCHAR" property="astate" />
+    <result column="ary1" jdbcType="VARCHAR" property="ary1" />
+    <result column="ary2" jdbcType="VARCHAR" property="ary2" />
+    <result column="ary3" jdbcType="VARCHAR" property="ary3" />
+    <result column="ary4" jdbcType="INTEGER" property="ary4" />
+    <result column="ary5" jdbcType="TIMESTAMP" property="ary5" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    aid, uid, did, ayuyuename, aemail, atime, amoneny, astate, ary1, ary2, ary3, ary4, 
+    ary5
+  </sql>
+  <select id="selectByExample" parameterType="com.example.wechatdemo.wechat.entity.AppointmentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from appointment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from appointment
+    where aid = #{aid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from appointment
+    where aid = #{aid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.wechatdemo.wechat.entity.AppointmentExample">
+    delete from appointment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.wechatdemo.wechat.entity.Appointment">
+    insert into appointment (aid, uid, did, 
+      ayuyuename, aemail, atime, 
+      amoneny, astate, ary1, 
+      ary2, ary3, ary4, ary5
+      )
+    values (#{aid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{did,jdbcType=INTEGER}, 
+      #{ayuyuename,jdbcType=VARCHAR}, #{aemail,jdbcType=VARCHAR}, #{atime,jdbcType=TIMESTAMP}, 
+      #{amoneny,jdbcType=VARCHAR}, #{astate,jdbcType=VARCHAR}, #{ary1,jdbcType=VARCHAR}, 
+      #{ary2,jdbcType=VARCHAR}, #{ary3,jdbcType=VARCHAR}, #{ary4,jdbcType=INTEGER}, #{ary5,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.wechatdemo.wechat.entity.Appointment">
+    insert into appointment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        aid,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="did != null">
+        did,
+      </if>
+      <if test="ayuyuename != null">
+        ayuyuename,
+      </if>
+      <if test="aemail != null">
+        aemail,
+      </if>
+      <if test="atime != null">
+        atime,
+      </if>
+      <if test="amoneny != null">
+        amoneny,
+      </if>
+      <if test="astate != null">
+        astate,
+      </if>
+      <if test="ary1 != null">
+        ary1,
+      </if>
+      <if test="ary2 != null">
+        ary2,
+      </if>
+      <if test="ary3 != null">
+        ary3,
+      </if>
+      <if test="ary4 != null">
+        ary4,
+      </if>
+      <if test="ary5 != null">
+        ary5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="did != null">
+        #{did,jdbcType=INTEGER},
+      </if>
+      <if test="ayuyuename != null">
+        #{ayuyuename,jdbcType=VARCHAR},
+      </if>
+      <if test="aemail != null">
+        #{aemail,jdbcType=VARCHAR},
+      </if>
+      <if test="atime != null">
+        #{atime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amoneny != null">
+        #{amoneny,jdbcType=VARCHAR},
+      </if>
+      <if test="astate != null">
+        #{astate,jdbcType=VARCHAR},
+      </if>
+      <if test="ary1 != null">
+        #{ary1,jdbcType=VARCHAR},
+      </if>
+      <if test="ary2 != null">
+        #{ary2,jdbcType=VARCHAR},
+      </if>
+      <if test="ary3 != null">
+        #{ary3,jdbcType=VARCHAR},
+      </if>
+      <if test="ary4 != null">
+        #{ary4,jdbcType=INTEGER},
+      </if>
+      <if test="ary5 != null">
+        #{ary5,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.wechatdemo.wechat.entity.AppointmentExample" resultType="java.lang.Long">
+    select count(*) from appointment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update appointment
+    <set>
+      <if test="record.aid != null">
+        aid = #{record.aid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.did != null">
+        did = #{record.did,jdbcType=INTEGER},
+      </if>
+      <if test="record.ayuyuename != null">
+        ayuyuename = #{record.ayuyuename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aemail != null">
+        aemail = #{record.aemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atime != null">
+        atime = #{record.atime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amoneny != null">
+        amoneny = #{record.amoneny,jdbcType=VARCHAR},
+      </if>
+      <if test="record.astate != null">
+        astate = #{record.astate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ary1 != null">
+        ary1 = #{record.ary1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ary2 != null">
+        ary2 = #{record.ary2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ary3 != null">
+        ary3 = #{record.ary3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ary4 != null">
+        ary4 = #{record.ary4,jdbcType=INTEGER},
+      </if>
+      <if test="record.ary5 != null">
+        ary5 = #{record.ary5,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update appointment
+    set aid = #{record.aid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      did = #{record.did,jdbcType=INTEGER},
+      ayuyuename = #{record.ayuyuename,jdbcType=VARCHAR},
+      aemail = #{record.aemail,jdbcType=VARCHAR},
+      atime = #{record.atime,jdbcType=TIMESTAMP},
+      amoneny = #{record.amoneny,jdbcType=VARCHAR},
+      astate = #{record.astate,jdbcType=VARCHAR},
+      ary1 = #{record.ary1,jdbcType=VARCHAR},
+      ary2 = #{record.ary2,jdbcType=VARCHAR},
+      ary3 = #{record.ary3,jdbcType=VARCHAR},
+      ary4 = #{record.ary4,jdbcType=INTEGER},
+      ary5 = #{record.ary5,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.wechatdemo.wechat.entity.Appointment">
+    update appointment
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="did != null">
+        did = #{did,jdbcType=INTEGER},
+      </if>
+      <if test="ayuyuename != null">
+        ayuyuename = #{ayuyuename,jdbcType=VARCHAR},
+      </if>
+      <if test="aemail != null">
+        aemail = #{aemail,jdbcType=VARCHAR},
+      </if>
+      <if test="atime != null">
+        atime = #{atime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amoneny != null">
+        amoneny = #{amoneny,jdbcType=VARCHAR},
+      </if>
+      <if test="astate != null">
+        astate = #{astate,jdbcType=VARCHAR},
+      </if>
+      <if test="ary1 != null">
+        ary1 = #{ary1,jdbcType=VARCHAR},
+      </if>
+      <if test="ary2 != null">
+        ary2 = #{ary2,jdbcType=VARCHAR},
+      </if>
+      <if test="ary3 != null">
+        ary3 = #{ary3,jdbcType=VARCHAR},
+      </if>
+      <if test="ary4 != null">
+        ary4 = #{ary4,jdbcType=INTEGER},
+      </if>
+      <if test="ary5 != null">
+        ary5 = #{ary5,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.wechatdemo.wechat.entity.Appointment">
+    update appointment
+    set uid = #{uid,jdbcType=INTEGER},
+      did = #{did,jdbcType=INTEGER},
+      ayuyuename = #{ayuyuename,jdbcType=VARCHAR},
+      aemail = #{aemail,jdbcType=VARCHAR},
+      atime = #{atime,jdbcType=TIMESTAMP},
+      amoneny = #{amoneny,jdbcType=VARCHAR},
+      astate = #{astate,jdbcType=VARCHAR},
+      ary1 = #{ary1,jdbcType=VARCHAR},
+      ary2 = #{ary2,jdbcType=VARCHAR},
+      ary3 = #{ary3,jdbcType=VARCHAR},
+      ary4 = #{ary4,jdbcType=INTEGER},
+      ary5 = #{ary5,jdbcType=TIMESTAMP}
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+</mapper>

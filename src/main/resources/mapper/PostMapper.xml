@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.wechatdemo.wechat.mapper.PostMapper">
+  <resultMap id="BaseResultMap" type="com.example.wechatdemo.wechat.entity.Post">
+    <id column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="pcontent" jdbcType="VARCHAR" property="pcontent" />
+    <result column="ptag" jdbcType="VARCHAR" property="ptag" />
+    <result column="ppic" jdbcType="VARCHAR" property="ppic" />
+    <result column="ptime" jdbcType="TIMESTAMP" property="ptime" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="pry1" jdbcType="VARCHAR" property="pry1" />
+    <result column="pry2" jdbcType="VARCHAR" property="pry2" />
+    <result column="pry3" jdbcType="VARCHAR" property="pry3" />
+    <result column="pry4" jdbcType="INTEGER" property="pry4" />
+    <result column="pry5" jdbcType="TIMESTAMP" property="pry5" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pid, pcontent, ptag, ppic, ptime, uid, pry1, pry2, pry3, pry4, pry5
+  </sql>
+  <select id="selectByExample" parameterType="com.example.wechatdemo.wechat.entity.PostExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from post
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from post
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from post
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.wechatdemo.wechat.entity.PostExample">
+    delete from post
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.wechatdemo.wechat.entity.Post">
+    insert into post (pid, pcontent, ptag, 
+      ppic, ptime, uid, 
+      pry1, pry2, pry3, pry4, 
+      pry5)
+    values (#{pid,jdbcType=INTEGER}, #{pcontent,jdbcType=VARCHAR}, #{ptag,jdbcType=VARCHAR}, 
+      #{ppic,jdbcType=VARCHAR}, #{ptime,jdbcType=TIMESTAMP}, #{uid,jdbcType=INTEGER}, 
+      #{pry1,jdbcType=VARCHAR}, #{pry2,jdbcType=VARCHAR}, #{pry3,jdbcType=VARCHAR}, #{pry4,jdbcType=INTEGER}, 
+      #{pry5,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.wechatdemo.wechat.entity.Post">
+    insert into post
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="pcontent != null">
+        pcontent,
+      </if>
+      <if test="ptag != null">
+        ptag,
+      </if>
+      <if test="ppic != null">
+        ppic,
+      </if>
+      <if test="ptime != null">
+        ptime,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="pry1 != null">
+        pry1,
+      </if>
+      <if test="pry2 != null">
+        pry2,
+      </if>
+      <if test="pry3 != null">
+        pry3,
+      </if>
+      <if test="pry4 != null">
+        pry4,
+      </if>
+      <if test="pry5 != null">
+        pry5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="ptag != null">
+        #{ptag,jdbcType=VARCHAR},
+      </if>
+      <if test="ppic != null">
+        #{ppic,jdbcType=VARCHAR},
+      </if>
+      <if test="ptime != null">
+        #{ptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="pry1 != null">
+        #{pry1,jdbcType=VARCHAR},
+      </if>
+      <if test="pry2 != null">
+        #{pry2,jdbcType=VARCHAR},
+      </if>
+      <if test="pry3 != null">
+        #{pry3,jdbcType=VARCHAR},
+      </if>
+      <if test="pry4 != null">
+        #{pry4,jdbcType=INTEGER},
+      </if>
+      <if test="pry5 != null">
+        #{pry5,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.wechatdemo.wechat.entity.PostExample" resultType="java.lang.Long">
+    select count(*) from post
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update post
+    <set>
+      <if test="record.pid != null">
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pcontent != null">
+        pcontent = #{record.pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptag != null">
+        ptag = #{record.ptag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ppic != null">
+        ppic = #{record.ppic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptime != null">
+        ptime = #{record.ptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pry1 != null">
+        pry1 = #{record.pry1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pry2 != null">
+        pry2 = #{record.pry2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pry3 != null">
+        pry3 = #{record.pry3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pry4 != null">
+        pry4 = #{record.pry4,jdbcType=INTEGER},
+      </if>
+      <if test="record.pry5 != null">
+        pry5 = #{record.pry5,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update post
+    set pid = #{record.pid,jdbcType=INTEGER},
+      pcontent = #{record.pcontent,jdbcType=VARCHAR},
+      ptag = #{record.ptag,jdbcType=VARCHAR},
+      ppic = #{record.ppic,jdbcType=VARCHAR},
+      ptime = #{record.ptime,jdbcType=TIMESTAMP},
+      uid = #{record.uid,jdbcType=INTEGER},
+      pry1 = #{record.pry1,jdbcType=VARCHAR},
+      pry2 = #{record.pry2,jdbcType=VARCHAR},
+      pry3 = #{record.pry3,jdbcType=VARCHAR},
+      pry4 = #{record.pry4,jdbcType=INTEGER},
+      pry5 = #{record.pry5,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.wechatdemo.wechat.entity.Post">
+    update post
+    <set>
+      <if test="pcontent != null">
+        pcontent = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="ptag != null">
+        ptag = #{ptag,jdbcType=VARCHAR},
+      </if>
+      <if test="ppic != null">
+        ppic = #{ppic,jdbcType=VARCHAR},
+      </if>
+      <if test="ptime != null">
+        ptime = #{ptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="pry1 != null">
+        pry1 = #{pry1,jdbcType=VARCHAR},
+      </if>
+      <if test="pry2 != null">
+        pry2 = #{pry2,jdbcType=VARCHAR},
+      </if>
+      <if test="pry3 != null">
+        pry3 = #{pry3,jdbcType=VARCHAR},
+      </if>
+      <if test="pry4 != null">
+        pry4 = #{pry4,jdbcType=INTEGER},
+      </if>
+      <if test="pry5 != null">
+        pry5 = #{pry5,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.wechatdemo.wechat.entity.Post">
+    update post
+    set pcontent = #{pcontent,jdbcType=VARCHAR},
+      ptag = #{ptag,jdbcType=VARCHAR},
+      ppic = #{ppic,jdbcType=VARCHAR},
+      ptime = #{ptime,jdbcType=TIMESTAMP},
+      uid = #{uid,jdbcType=INTEGER},
+      pry1 = #{pry1,jdbcType=VARCHAR},
+      pry2 = #{pry2,jdbcType=VARCHAR},
+      pry3 = #{pry3,jdbcType=VARCHAR},
+      pry4 = #{pry4,jdbcType=INTEGER},
+      pry5 = #{pry5,jdbcType=TIMESTAMP}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+</mapper>

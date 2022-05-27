@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.wechatdemo.wechat.mapper.DruggoodMapper">
+  <resultMap id="BaseResultMap" type="com.example.wechatdemo.wechat.entity.Druggood">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="drugGoodId" jdbcType="INTEGER" property="druggoodid" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="slogan" jdbcType="VARCHAR" property="slogan" />
+    <result column="parentId" jdbcType="INTEGER" property="parentid" />
+    <result column="parentParentId" jdbcType="INTEGER" property="parentparentid" />
+    <result column="dgry1" jdbcType="VARCHAR" property="dgry1" />
+    <result column="dgry2" jdbcType="VARCHAR" property="dgry2" />
+    <result column="dgry3" jdbcType="VARCHAR" property="dgry3" />
+    <result column="dgry4" jdbcType="VARCHAR" property="dgry4" />
+    <result column="dgry5" jdbcType="INTEGER" property="dgry5" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, drugGoodId, img, name, price, slogan, parentId, parentParentId, dgry1, dgry2, 
+    dgry3, dgry4, dgry5
+  </sql>
+  <select id="selDruggoodBySearchLike" parameterType="com.example.wechatdemo.wechat.entity.DruggoodExample" resultMap="BaseResultMap">
+    <bind name="name" value="'%'+name+'%'"/>
+    select * from druggood where name like #{name}
+  </select>
+
+  <select id="selectByExample" parameterType="com.example.wechatdemo.wechat.entity.DruggoodExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from druggood
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from druggood
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from druggood
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.wechatdemo.wechat.entity.DruggoodExample">
+    delete from druggood
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.wechatdemo.wechat.entity.Druggood">
+    insert into druggood (id, drugGoodId, img, 
+      name, price, slogan, 
+      parentId, parentParentId, dgry1, 
+      dgry2, dgry3, dgry4, 
+      dgry5)
+    values (#{id,jdbcType=INTEGER}, #{druggoodid,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{slogan,jdbcType=VARCHAR}, 
+      #{parentid,jdbcType=INTEGER}, #{parentparentid,jdbcType=INTEGER}, #{dgry1,jdbcType=VARCHAR}, 
+      #{dgry2,jdbcType=VARCHAR}, #{dgry3,jdbcType=VARCHAR}, #{dgry4,jdbcType=VARCHAR}, 
+      #{dgry5,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.wechatdemo.wechat.entity.Druggood">
+    insert into druggood
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="druggoodid != null">
+        drugGoodId,
+      </if>
+      <if test="img != null">
+        img,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="slogan != null">
+        slogan,
+      </if>
+      <if test="parentid != null">
+        parentId,
+      </if>
+      <if test="parentparentid != null">
+        parentParentId,
+      </if>
+      <if test="dgry1 != null">
+        dgry1,
+      </if>
+      <if test="dgry2 != null">
+        dgry2,
+      </if>
+      <if test="dgry3 != null">
+        dgry3,
+      </if>
+      <if test="dgry4 != null">
+        dgry4,
+      </if>
+      <if test="dgry5 != null">
+        dgry5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="druggoodid != null">
+        #{druggoodid,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="slogan != null">
+        #{slogan,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="parentparentid != null">
+        #{parentparentid,jdbcType=INTEGER},
+      </if>
+      <if test="dgry1 != null">
+        #{dgry1,jdbcType=VARCHAR},
+      </if>
+      <if test="dgry2 != null">
+        #{dgry2,jdbcType=VARCHAR},
+      </if>
+      <if test="dgry3 != null">
+        #{dgry3,jdbcType=VARCHAR},
+      </if>
+      <if test="dgry4 != null">
+        #{dgry4,jdbcType=VARCHAR},
+      </if>
+      <if test="dgry5 != null">
+        #{dgry5,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.wechatdemo.wechat.entity.DruggoodExample" resultType="java.lang.Long">
+    select count(*) from druggood
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update druggood
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.druggoodid != null">
+        drugGoodId = #{record.druggoodid,jdbcType=INTEGER},
+      </if>
+      <if test="record.img != null">
+        img = #{record.img,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.slogan != null">
+        slogan = #{record.slogan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentid != null">
+        parentId = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentparentid != null">
+        parentParentId = #{record.parentparentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dgry1 != null">
+        dgry1 = #{record.dgry1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dgry2 != null">
+        dgry2 = #{record.dgry2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dgry3 != null">
+        dgry3 = #{record.dgry3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dgry4 != null">
+        dgry4 = #{record.dgry4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dgry5 != null">
+        dgry5 = #{record.dgry5,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update druggood
+    set id = #{record.id,jdbcType=INTEGER},
+      drugGoodId = #{record.druggoodid,jdbcType=INTEGER},
+      img = #{record.img,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      slogan = #{record.slogan,jdbcType=VARCHAR},
+      parentId = #{record.parentid,jdbcType=INTEGER},
+      parentParentId = #{record.parentparentid,jdbcType=INTEGER},
+      dgry1 = #{record.dgry1,jdbcType=VARCHAR},
+      dgry2 = #{record.dgry2,jdbcType=VARCHAR},
+      dgry3 = #{record.dgry3,jdbcType=VARCHAR},
+      dgry4 = #{record.dgry4,jdbcType=VARCHAR},
+      dgry5 = #{record.dgry5,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.wechatdemo.wechat.entity.Druggood">
+    update druggood
+    <set>
+      <if test="druggoodid != null">
+        drugGoodId = #{druggoodid,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="slogan != null">
+        slogan = #{slogan,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        parentId = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="parentparentid != null">
+        parentParentId = #{parentparentid,jdbcType=INTEGER},
+      </if>
+      <if test="dgry1 != null">
+        dgry1 = #{dgry1,jdbcType=VARCHAR},
+      </if>
+      <if test="dgry2 != null">
+        dgry2 = #{dgry2,jdbcType=VARCHAR},
+      </if>
+      <if test="dgry3 != null">
+        dgry3 = #{dgry3,jdbcType=VARCHAR},
+      </if>
+      <if test="dgry4 != null">
+        dgry4 = #{dgry4,jdbcType=VARCHAR},
+      </if>
+      <if test="dgry5 != null">
+        dgry5 = #{dgry5,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.wechatdemo.wechat.entity.Druggood">
+    update druggood
+    set drugGoodId = #{druggoodid,jdbcType=INTEGER},
+      img = #{img,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      slogan = #{slogan,jdbcType=VARCHAR},
+      parentId = #{parentid,jdbcType=INTEGER},
+      parentParentId = #{parentparentid,jdbcType=INTEGER},
+      dgry1 = #{dgry1,jdbcType=VARCHAR},
+      dgry2 = #{dgry2,jdbcType=VARCHAR},
+      dgry3 = #{dgry3,jdbcType=VARCHAR},
+      dgry4 = #{dgry4,jdbcType=VARCHAR},
+      dgry5 = #{dgry5,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

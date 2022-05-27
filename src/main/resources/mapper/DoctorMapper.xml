@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.wechatdemo.wechat.mapper.DoctorMapper">
+  <resultMap id="BaseResultMap" type="com.example.wechatdemo.wechat.entity.Doctor">
+    <id column="did" jdbcType="INTEGER" property="did" />
+    <result column="doffice" jdbcType="VARCHAR" property="doffice" />
+    <result column="drank" jdbcType="VARCHAR" property="drank" />
+    <result column="dqualification" jdbcType="VARCHAR" property="dqualification" />
+    <result column="ddescript" jdbcType="VARCHAR" property="ddescript" />
+    <result column="deducation" jdbcType="VARCHAR" property="deducation" />
+    <result column="dexperience" jdbcType="VARCHAR" property="dexperience" />
+    <result column="dwards" jdbcType="VARCHAR" property="dwards" />
+    <result column="dgoodat" jdbcType="VARCHAR" property="dgoodat" />
+    <result column="dhospital" jdbcType="VARCHAR" property="dhospital" />
+    <result column="daddress" jdbcType="VARCHAR" property="daddress" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="dry1" jdbcType="VARCHAR" property="dry1" />
+    <result column="dry2" jdbcType="VARCHAR" property="dry2" />
+    <result column="dry3" jdbcType="VARCHAR" property="dry3" />
+    <result column="dry4" jdbcType="VARCHAR" property="dry4" />
+    <result column="dry5" jdbcType="TIMESTAMP" property="dry5" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    did, doffice, drank, dqualification, ddescript, deducation, dexperience, dwards, 
+    dgoodat, dhospital, daddress, uid, dry1, dry2, dry3, dry4, dry5
+  </sql>
+  <select id="selectByExample" parameterType="com.example.wechatdemo.wechat.entity.DoctorExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from doctor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from doctor
+    where did = #{did,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from doctor
+    where did = #{did,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.wechatdemo.wechat.entity.DoctorExample">
+    delete from doctor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.wechatdemo.wechat.entity.Doctor">
+    insert into doctor (did, doffice, drank, 
+      dqualification, ddescript, deducation, 
+      dexperience, dwards, dgoodat, 
+      dhospital, daddress, uid, 
+      dry1, dry2, dry3, dry4, 
+      dry5)
+    values (#{did,jdbcType=INTEGER}, #{doffice,jdbcType=VARCHAR}, #{drank,jdbcType=VARCHAR}, 
+      #{dqualification,jdbcType=VARCHAR}, #{ddescript,jdbcType=VARCHAR}, #{deducation,jdbcType=VARCHAR}, 
+      #{dexperience,jdbcType=VARCHAR}, #{dwards,jdbcType=VARCHAR}, #{dgoodat,jdbcType=VARCHAR}, 
+      #{dhospital,jdbcType=VARCHAR}, #{daddress,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER}, 
+      #{dry1,jdbcType=VARCHAR}, #{dry2,jdbcType=VARCHAR}, #{dry3,jdbcType=VARCHAR}, #{dry4,jdbcType=VARCHAR}, 
+      #{dry5,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.wechatdemo.wechat.entity.Doctor">
+    insert into doctor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="did != null">
+        did,
+      </if>
+      <if test="doffice != null">
+        doffice,
+      </if>
+      <if test="drank != null">
+        drank,
+      </if>
+      <if test="dqualification != null">
+        dqualification,
+      </if>
+      <if test="ddescript != null">
+        ddescript,
+      </if>
+      <if test="deducation != null">
+        deducation,
+      </if>
+      <if test="dexperience != null">
+        dexperience,
+      </if>
+      <if test="dwards != null">
+        dwards,
+      </if>
+      <if test="dgoodat != null">
+        dgoodat,
+      </if>
+      <if test="dhospital != null">
+        dhospital,
+      </if>
+      <if test="daddress != null">
+        daddress,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="dry1 != null">
+        dry1,
+      </if>
+      <if test="dry2 != null">
+        dry2,
+      </if>
+      <if test="dry3 != null">
+        dry3,
+      </if>
+      <if test="dry4 != null">
+        dry4,
+      </if>
+      <if test="dry5 != null">
+        dry5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="did != null">
+        #{did,jdbcType=INTEGER},
+      </if>
+      <if test="doffice != null">
+        #{doffice,jdbcType=VARCHAR},
+      </if>
+      <if test="drank != null">
+        #{drank,jdbcType=VARCHAR},
+      </if>
+      <if test="dqualification != null">
+        #{dqualification,jdbcType=VARCHAR},
+      </if>
+      <if test="ddescript != null">
+        #{ddescript,jdbcType=VARCHAR},
+      </if>
+      <if test="deducation != null">
+        #{deducation,jdbcType=VARCHAR},
+      </if>
+      <if test="dexperience != null">
+        #{dexperience,jdbcType=VARCHAR},
+      </if>
+      <if test="dwards != null">
+        #{dwards,jdbcType=VARCHAR},
+      </if>
+      <if test="dgoodat != null">
+        #{dgoodat,jdbcType=VARCHAR},
+      </if>
+      <if test="dhospital != null">
+        #{dhospital,jdbcType=VARCHAR},
+      </if>
+      <if test="daddress != null">
+        #{daddress,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="dry1 != null">
+        #{dry1,jdbcType=VARCHAR},
+      </if>
+      <if test="dry2 != null">
+        #{dry2,jdbcType=VARCHAR},
+      </if>
+      <if test="dry3 != null">
+        #{dry3,jdbcType=VARCHAR},
+      </if>
+      <if test="dry4 != null">
+        #{dry4,jdbcType=VARCHAR},
+      </if>
+      <if test="dry5 != null">
+        #{dry5,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.wechatdemo.wechat.entity.DoctorExample" resultType="java.lang.Long">
+    select count(*) from doctor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update doctor
+    <set>
+      <if test="record.did != null">
+        did = #{record.did,jdbcType=INTEGER},
+      </if>
+      <if test="record.doffice != null">
+        doffice = #{record.doffice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drank != null">
+        drank = #{record.drank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dqualification != null">
+        dqualification = #{record.dqualification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ddescript != null">
+        ddescript = #{record.ddescript,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deducation != null">
+        deducation = #{record.deducation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dexperience != null">
+        dexperience = #{record.dexperience,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dwards != null">
+        dwards = #{record.dwards,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dgoodat != null">
+        dgoodat = #{record.dgoodat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dhospital != null">
+        dhospital = #{record.dhospital,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daddress != null">
+        daddress = #{record.daddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dry1 != null">
+        dry1 = #{record.dry1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dry2 != null">
+        dry2 = #{record.dry2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dry3 != null">
+        dry3 = #{record.dry3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dry4 != null">
+        dry4 = #{record.dry4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dry5 != null">
+        dry5 = #{record.dry5,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update doctor
+    set did = #{record.did,jdbcType=INTEGER},
+      doffice = #{record.doffice,jdbcType=VARCHAR},
+      drank = #{record.drank,jdbcType=VARCHAR},
+      dqualification = #{record.dqualification,jdbcType=VARCHAR},
+      ddescript = #{record.ddescript,jdbcType=VARCHAR},
+      deducation = #{record.deducation,jdbcType=VARCHAR},
+      dexperience = #{record.dexperience,jdbcType=VARCHAR},
+      dwards = #{record.dwards,jdbcType=VARCHAR},
+      dgoodat = #{record.dgoodat,jdbcType=VARCHAR},
+      dhospital = #{record.dhospital,jdbcType=VARCHAR},
+      daddress = #{record.daddress,jdbcType=VARCHAR},
+      uid = #{record.uid,jdbcType=INTEGER},
+      dry1 = #{record.dry1,jdbcType=VARCHAR},
+      dry2 = #{record.dry2,jdbcType=VARCHAR},
+      dry3 = #{record.dry3,jdbcType=VARCHAR},
+      dry4 = #{record.dry4,jdbcType=VARCHAR},
+      dry5 = #{record.dry5,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.wechatdemo.wechat.entity.Doctor">
+    update doctor
+    <set>
+      <if test="doffice != null">
+        doffice = #{doffice,jdbcType=VARCHAR},
+      </if>
+      <if test="drank != null">
+        drank = #{drank,jdbcType=VARCHAR},
+      </if>
+      <if test="dqualification != null">
+        dqualification = #{dqualification,jdbcType=VARCHAR},
+      </if>
+      <if test="ddescript != null">
+        ddescript = #{ddescript,jdbcType=VARCHAR},
+      </if>
+      <if test="deducation != null">
+        deducation = #{deducation,jdbcType=VARCHAR},
+      </if>
+      <if test="dexperience != null">
+        dexperience = #{dexperience,jdbcType=VARCHAR},
+      </if>
+      <if test="dwards != null">
+        dwards = #{dwards,jdbcType=VARCHAR},
+      </if>
+      <if test="dgoodat != null">
+        dgoodat = #{dgoodat,jdbcType=VARCHAR},
+      </if>
+      <if test="dhospital != null">
+        dhospital = #{dhospital,jdbcType=VARCHAR},
+      </if>
+      <if test="daddress != null">
+        daddress = #{daddress,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="dry1 != null">
+        dry1 = #{dry1,jdbcType=VARCHAR},
+      </if>
+      <if test="dry2 != null">
+        dry2 = #{dry2,jdbcType=VARCHAR},
+      </if>
+      <if test="dry3 != null">
+        dry3 = #{dry3,jdbcType=VARCHAR},
+      </if>
+      <if test="dry4 != null">
+        dry4 = #{dry4,jdbcType=VARCHAR},
+      </if>
+      <if test="dry5 != null">
+        dry5 = #{dry5,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where did = #{did,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.wechatdemo.wechat.entity.Doctor">
+    update doctor
+    set doffice = #{doffice,jdbcType=VARCHAR},
+      drank = #{drank,jdbcType=VARCHAR},
+      dqualification = #{dqualification,jdbcType=VARCHAR},
+      ddescript = #{ddescript,jdbcType=VARCHAR},
+      deducation = #{deducation,jdbcType=VARCHAR},
+      dexperience = #{dexperience,jdbcType=VARCHAR},
+      dwards = #{dwards,jdbcType=VARCHAR},
+      dgoodat = #{dgoodat,jdbcType=VARCHAR},
+      dhospital = #{dhospital,jdbcType=VARCHAR},
+      daddress = #{daddress,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=INTEGER},
+      dry1 = #{dry1,jdbcType=VARCHAR},
+      dry2 = #{dry2,jdbcType=VARCHAR},
+      dry3 = #{dry3,jdbcType=VARCHAR},
+      dry4 = #{dry4,jdbcType=VARCHAR},
+      dry5 = #{dry5,jdbcType=TIMESTAMP}
+    where did = #{did,jdbcType=INTEGER}
+  </update>
+</mapper>
